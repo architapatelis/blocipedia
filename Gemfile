@@ -29,7 +29,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster.
 gem 'turbolinks'
 #Sass-powered version of Bootstrap
-gem 'bootstrap'
+gem 'bootstrap-sass'
 # to store SendGrid username and password as environment variables.
 gem 'figaro'
 
@@ -40,7 +40,7 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background.
   gem 'spring'
   # testing framework
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0'
   # to write association tests for 'topics' and 'posts' - provides methods not found in RSpec
   gem 'shoulda'
   # used to easily generate fake data: names, addresses, phone numbers, etc.
