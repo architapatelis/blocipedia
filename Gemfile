@@ -32,6 +32,8 @@ gem 'turbolinks'
 gem 'bootstrap-sass'
 # to store SendGrid username and password as environment variables.
 gem 'figaro'
+# user authentication - sign up
+gem 'devise'
 
 
 group :development, :test do

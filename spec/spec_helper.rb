@@ -16,7 +16,16 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'rspec/rails'
+
 RSpec.configure do |config|
+
+  # in order to access the sign_in and sign_out helper methods that devise provides
+  # we can use them in out controller specs anytime we need to login or logout before performing the test
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
