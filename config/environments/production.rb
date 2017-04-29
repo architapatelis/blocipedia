@@ -1,4 +1,13 @@
 Rails.application.configure do
+  #smtp setup
+  config.action_mailer.default_url_options = {host: 'gmail.com'}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 465,
+    domain: 'gmail.com'
+  }
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
