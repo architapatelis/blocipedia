@@ -31,5 +31,9 @@ module Blocipedia
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # to make random_data.rb accessible to all of our specs.
+    # adding it to application.rb autoloads any references to the 'lib' directory used by our code.
+    config.autoload_paths << File.join(config.root, "lib")
   end
 end
