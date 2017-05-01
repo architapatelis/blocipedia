@@ -1,8 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
+
   let(:my_user) { create(:user) }
   let(:my_wiki) { create(:wiki, user: my_user) }
+
+context "member" do
+
+  before do
+    sign_in(:user, my_user)
+  end
 
   describe "GET index" do
     it "returns http success" do
@@ -12,7 +19,7 @@ RSpec.describe WikisController, type: :controller do
 
     it "assigns Wiki.all to @wikis" do
       get :index
-      expect(assigns(:wikis).to eq([my_wiki])
+      expect(assigns(:wikis)).to eq(Wiki.all)
     end
   end
 
@@ -82,49 +89,48 @@ RSpec.describe WikisController, type: :controller do
       wiki_instance = assigns(:wiki)
 
       expect(wiki_instance.id).to eq my_wiki.id
-      expect(wiki_instance.title).to ew my_wiki.ttile
+      expect(wiki_instance.title).to eq my_wiki.title
       expect(wiki_instance.body).to eq my_wiki.body
-    end
-
-
-    describe "PUT update" do
-
-      it "updates wiki with expected attributes" do
-        new_title = RandomData.random_sentence
-        new_body = RandomData.random_paragraph
-
-        put :update, wiki: {title: new_title, body: new_body}
-
-        updated_wiki = assigns(:wiki)
-        expect(updated_wiki.id).to eq my_wiki.id
-        expect(updated_wiki.title).to eq new_title
-        expect(updated_wiki.body).to eq new_body
-      end
-
-      it "redirects to the updated wiki" do
-        new_title = RandomData.random_sentence
-        new_body = RandomData.random_paragraph
-
-        put :update, wiki: {title: new_title, body: new_body}
-
-        expect(response).to redirect_to my_wiki
-      end
-    end
-
-    describe "DELETE destroy" do
-      it "deleted the wiki" do
-        delete :destroy, { id: my_wiki.id }
-
-        count = Wiki.where({ id: my_wiki.id}).size
-        expect(count).to eq 0
-
-      end
-
-      it "redirects to wikis index view" do
-        delete :destroy, { id: my_wiki.id }
-        expect(response).to redirect_to wikis_path
-      end
     end
   end
 
+  describe "PUT update" do
+
+    it "updates wiki with expected attributes" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+
+      put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
+
+      updated_wiki = assigns(:wiki)
+      expect(updated_wiki.id).to eq my_wiki.id
+      expect(updated_wiki.title).to eq new_title
+      expect(updated_wiki.body).to eq new_body
+    end
+
+    it "redirects to the updated wiki" do
+      new_title = RandomData.random_sentence
+      new_body = RandomData.random_paragraph
+
+      put :update, id: my_wiki.id, wiki: {title: new_title, body: new_body}
+
+      expect(response).to redirect_to my_wiki
+    end
+  end
+
+  describe "DELETE destroy" do
+    it "deleted the wiki" do
+      delete :destroy, { id: my_wiki.id }
+
+      count = Wiki.where({ id: my_wiki.id}).size
+      expect(count).to eq 0
+
+    end
+
+    it "redirects to wikis index view" do
+      delete :destroy, { id: my_wiki.id }
+      expect(response).to redirect_to wikis_path
+    end
+  end
+end
 end

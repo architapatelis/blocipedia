@@ -34,6 +34,8 @@ gem 'bootstrap-sass'
 gem 'figaro'
 # user authentication - sign up
 gem 'devise'
+# buil simple, robut and scaleable authorization system
+gem 'pundit'
 
 
 group :development, :test do
