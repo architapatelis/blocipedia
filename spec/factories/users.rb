@@ -6,5 +6,6 @@ FactoryGirl.define do
     password pw
     password_confirmation pw
     confirmed_at Date.today
+    role :standard
   end
 end

@@ -1,4 +1,9 @@
 class WikisController < ApplicationController
+
+  before_action :authenticate_user!, except: [:index, :show]
+
+  after_action :verify_authorized, only: [:destroy]
+
   def index
     @wikis = Wiki.all
   end
@@ -47,6 +52,8 @@ class WikisController < ApplicationController
   def destroy
     @wiki = Wiki.find(params[:id])
 
+    authorize @wiki
+
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to @wiki
@@ -55,8 +62,6 @@ class WikisController < ApplicationController
       render :show
     end
   end
-
-
 
   private
 

@@ -40,4 +40,10 @@ module RandomData
     #join 0th to nth letters to form a word
     letters[0,rand(3..8)].join
   end
+
+
+  def self.random_email
+    "#{random_word}@#{random_word}.#{random_word}"
+  end
+  
 end
