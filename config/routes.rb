@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :charges, only: [:new, :create]
+  delete 'charges/delete' => 'charges#destroy'
   resources :wikis
   devise_for :users
   get 'about' => 'welcome#about'

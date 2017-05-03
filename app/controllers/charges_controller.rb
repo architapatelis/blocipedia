@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
+    flash[:notice] = "Enjoy your premium membership, #{current_user.email}!"
     current_user.role = "premium"
     current_user.save
     redirect_to root_path
@@ -36,5 +36,25 @@ class ChargesController < ApplicationController
     rescue Stripe::CardError => e
       flash[:alert] = e.message
       redirect_to new_charge_path
+  end
+
+  def destroy
+
+  current_user.update_attribute(:role, :standard)
+  #Downgrades private wikis to public when a user downgrades their account status
+  current_user.wiki.where(private: true).map{ |r| r.update_attributes(private: false) }
+
+  flash[:notice] = "Sorry to see you leave premium, #{current_user.email}!"
+  redirect_to root_path
+
+    #Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    #customer = Stripe::Customer.retrieve(customer.id)
+    #customer.subscriptions.retrieve(subscription_id)
+    #flash[:notice] = "Please try our Premium services again in the future, #{current_user.username}!"
+    #Downgrades private wikis to public when a user downgrades their account status
+    #current_user.wiki.where(private: true).map { |r| r.update_attributes(private: false) }
+    #Downgrades a users account to standard
+    #current_user.standard!
+    #redirect_to root_path
   end
 end

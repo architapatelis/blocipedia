@@ -6,7 +6,7 @@ class WikisController < ApplicationController
 
   def index
 
-    if (current_user.admin? || current_user.premium?)
+    if (current_user && (current_user.admin? || current_user.premium?) )
       @wikis = Wiki.all
     else
       @wikis = Wiki.publicly_visible
