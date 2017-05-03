@@ -26,7 +26,7 @@ class ChargesController < ApplicationController
     )
 
     flash[:notice] = "Enjoy your premium membership, #{current_user.email}!"
-    current_user.role = "premium"
+    current_user.update_attribute(:role, :premium)
     current_user.save
     redirect_to root_path
 
@@ -42,19 +42,9 @@ class ChargesController < ApplicationController
 
   current_user.update_attribute(:role, :standard)
   #Downgrades private wikis to public when a user downgrades their account status
-  current_user.wiki.where(private: true).map{ |r| r.update_attributes(private: false) }
+  current_user.wikis.where(private: true).map{ |wiki| wiki.update_attributes(private: false) }
 
-  flash[:notice] = "Sorry to see you leave premium, #{current_user.email}!"
+  flash[:notice] = "You have now been downgraded to standard membership and all your wikis are now public, #{current_user.email}."
   redirect_to root_path
-
-    #Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    #customer = Stripe::Customer.retrieve(customer.id)
-    #customer.subscriptions.retrieve(subscription_id)
-    #flash[:notice] = "Please try our Premium services again in the future, #{current_user.username}!"
-    #Downgrades private wikis to public when a user downgrades their account status
-    #current_user.wiki.where(private: true).map { |r| r.update_attributes(private: false) }
-    #Downgrades a users account to standard
-    #current_user.standard!
-    #redirect_to root_path
   end
 end

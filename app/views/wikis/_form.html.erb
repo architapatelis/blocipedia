@@ -20,9 +20,28 @@
     <%= f.text_area :body, class: 'form-control', placeholder: "Enter wiki body" %>
   <% end %>
 
-  <% if current_user.admin? || current_user.premium? %>
-    <%= f.label :private, class: 'checkbox' do %>
-      <%= f.check_box :private %> Private Wiki
+  <% if current_user.admin? %>
+    <div class="form-group">
+      <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private Wiki
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if current_user.premium? %>
+    <% if current_page?(controller: 'wikis', action: 'new') %>
+      <div class="form-group">
+        <%= f.label :private, class: 'checkbox' do %>
+          <%= f.check_box :private %> Private Wiki
+        <% end %>
+      </div>
+    <% end %>
+    <% if current_user == wiki.user %>
+      <div class="form-group">
+        <%= f.label :private, class: 'checkbox' do %>
+          <%= f.check_box :private %> Private Wiki
+        <% end %>
+      </div>
     <% end %>
   <% end %>
 

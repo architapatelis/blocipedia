@@ -1,5 +1,7 @@
+<% if user_signed_in? %>
 <div class="premium-member">
-  <% if user_signed_in? %>
+  <% if current_user.standard? %>
     <%= link_to "Become a Premium Member NOW!", new_charge_path, class: "btn" %>
   <% end %>
 </div>
+<% end %>
