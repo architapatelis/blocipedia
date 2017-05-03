@@ -5,7 +5,12 @@ class WikisController < ApplicationController
   after_action :verify_authorized, only: [:destroy]
 
   def index
-    @wikis = Wiki.all
+
+    if (current_user.admin? || current_user.premium?)
+      @wikis = Wiki.all
+    else
+      @wikis = Wiki.publicly_visible
+    end
   end
 
   def show
@@ -20,6 +25,7 @@ class WikisController < ApplicationController
     @wiki = Wiki.new
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
+    @wiki.private = params[:wiki][:private]
 
     @wiki.user = current_user
 
@@ -66,7 +72,7 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 
 end

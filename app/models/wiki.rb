@@ -7,6 +7,9 @@ class Wiki < ActiveRecord::Base
 
   validates :title, length: {minimum: 5}, presence: true
   validates :body, length: {minimum: 20}, presence: true
-
+  validates :private, presence: false
   validates :user, presence: true
+
+  after_initialize { self.private ||= false }
+  scope :publicly_visible, -> {where(private: false)}
 end

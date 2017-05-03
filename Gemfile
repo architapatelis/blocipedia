@@ -36,6 +36,8 @@ gem 'figaro'
 gem 'devise'
 # buil simple, robut and scaleable authorization system
 gem 'pundit'
+# charge user to upgrade account
+gem 'stripe'
 
 
 group :development, :test do
