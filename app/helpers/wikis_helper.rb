@@ -4,6 +4,11 @@ module WikisHelper
     current_user && (current_user == wiki.user || current_user.admin?)
   end
 
+  def authorized_to_create_collaboration?(wiki)
+    current_user && (current_user == wiki.user || current_user.admin?)
+
+  end
+
   def make_new_wiki_private?
     current_user.premium? || current_user.admin?
   end

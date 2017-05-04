@@ -25,6 +25,9 @@
   <% if user_is_authorized_to_delete?(@wiki) %>
   <%= link_to "Delete Wiki", [@wiki], method: :delete, class: 'btn btn-danger', data: {confirm: "Are you sure you want to delete this wiki?"} %>
   <% end %>
+  <% if  authorized_to_create_collaboration?(@wiki) %>
+  <%= link_to "Collaborate", new_wiki_collaborator_path(@wiki), class: 'btn btn-success' %>
+  <% end %>
 </div>
 <br>
 <div>

@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
-  has_many :wikis
+  has_many :collaborators
+  has_many :wikis, through: :collaborators
 
   before_save {self.email = email.downcase if email.present?}
 
@@ -13,4 +14,5 @@ class User < ActiveRecord::Base
 
 
   enum role: [:standard, :admin, :premium]
+
 end
