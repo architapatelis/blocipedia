@@ -38,7 +38,8 @@ gem 'devise'
 gem 'pundit'
 # charge user to upgrade account
 gem 'stripe'
-
+# in order to user Markdown syntax
+gem 'redcarpet'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

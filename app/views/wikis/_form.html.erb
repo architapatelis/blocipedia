@@ -20,6 +20,10 @@
     <%= f.text_area :body, class: 'form-control', placeholder: "Enter wiki body" %>
   <% end %>
 
+  <div class="form-group">
+    <p class="pull-right">**bold** _italic_ `code` >quote • - bullet list ```block code```</p>
+  </div>
+  <br>
   <% if current_user.admin? %>
     <div class="form-group">
       <%= f.label :private, class: 'checkbox' do %>
