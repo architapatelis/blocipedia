@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 
   has_many :collaborators
-  has_many :wikis, through: :collaborators
+  has_many :collaborator_wikis, through: :collaborators, source: :wiki
+
 
   before_save {self.email = email.downcase if email.present?}
 

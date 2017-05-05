@@ -1,24 +1,11 @@
 class WikisController < ApplicationController
 
-  before_action :authenticate_user!, except: [:index, :show]
-
+  before_action :authenticate_user!
   after_action :verify_authorized, only: [:destroy]
 
 
-  #after_action :verify_policy_scoped, only: [:index]
-
-
   def index
-  if current_user
     @wikis = policy_scope(Wiki)
-  else
-    @wikis = Wiki.publicly_visible
-
-    #if (current_user && (current_user.admin? || current_user.premium?) )
-    #  @wikis = Wiki.all
-    #else
-    #  @wikis = Wiki.publicly_visible
-    end
   end
 
   def show

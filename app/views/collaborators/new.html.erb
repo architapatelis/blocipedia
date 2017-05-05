@@ -1,11 +1,12 @@
 <div class="row">
   <div class="col-md-8">
-    <h3> Add Collaborators </h3>
+    <h3> Add Collaborators to - <%= link_to "#{@wiki.title}", @wiki %></h3>
+    <br>
     <% @users_currently_not_collaborating.each do |user| %>
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <%= button_to "#{user.email}", {controller: "collaborators", action: "create", wiki_id: @wiki.id, user_id: user.id} , class: 'btn btn-success' %>
+            <%= button_to "#{user.email}", {controller: "collaborators", action: "create", wiki_id: @wiki.id, user_id: user.id} , class: 'btn btn-info' %>
           </h4>
         </div>
       </div>
@@ -18,13 +19,13 @@
         <div class="media">
           <div class="media-body">
             <h4 class="media-heading">
-              <%= link_to "#{user.email}", [@wiki, @current_collaborators.find_by(user_id: user.id)], method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to remove this colaborator?' } %>
+              <%= link_to "#{user.email}", [@wiki, @current_collaborators.find_by(user_id: user.id)], method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to remove this collaborator?' } %>
             </h4>
           </div>
         </div>
       <% end %>
       <% else %>
-        <h4><%= markdown("_Currently no Collabartors for this Wiki_.") %></h4>
+        <h5><%= markdown("_There are currently no collaborators for this wiki_.") %></h5>
       <% end %>
   </div>
 </div>
