@@ -38,7 +38,7 @@ def destroy
   collaborator = Collaborator.find(params[:id])
 
   if collaborator.destroy
-    flash[:notice] = "Colaborator #{collaborator.user.email} was removed from wiki."
+    flash[:notice] = "Collaborator #{collaborator.user.email} was removed from wiki."
   else
     flash[:alert] = " Collaborator #{collaborator.user.email} could not be removed."
   end
